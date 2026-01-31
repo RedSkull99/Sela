@@ -1,0 +1,15 @@
+{% extends "master.html" %}
+
+{% block title %}Server Error{% endblock %}
+
+{% block content %}
+<section class="error-section">
+    <div class="error-card">
+        <h1 class="error-code">500</h1>
+        <h2>Internal Server Error</h2>
+        <p>Something went wrong on our end. Please try again later.</p>
+        <p class="error-details">{{ error }}</p>
+        <a href="/" class="btn-primary">Go Back Home</a>
+    </div>
+</section>
+{% endblock %}

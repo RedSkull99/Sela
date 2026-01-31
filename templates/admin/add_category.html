@@ -1,0 +1,20 @@
+{% extends "master.html" %}
+
+{% block title %}Add Category{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Add Category</h2>
+    <form action="{{ url_for('admin.add_category') }}" method="POST">
+        <div class="form-group">
+            <label for="name">Category Name</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div style="display: flex; gap: 1rem;">
+            <button type="submit" class="btn-primary">Create Category</button>
+            <a href="{{ url_for('admin.categories') }}" class="btn-secondary"
+                style="width: auto; text-align: center;">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

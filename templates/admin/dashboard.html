@@ -1,0 +1,67 @@
+{% extends "master.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="result-card" style="max-width: 1000px;">
+    <h2>Admin Dashboard</h2>
+    <div
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+        <div
+            style="background: var(--background); padding: 1.5rem; border-radius: var(--radius-lg); text-align: center;">
+            <h3 style="font-size: 3rem; color: var(--primary); margin-bottom: 0.5rem;">{{ product_count }}</h3>
+            <p>Products</p>
+            <a href="{{ url_for('admin.products') }}" class="btn-primary"
+                style="margin-top: 1rem; font-size: 0.8rem; padding: 0.5rem 1rem;">Manage</a>
+        </div>
+        <div
+            style="background: var(--background); padding: 1.5rem; border-radius: var(--radius-lg); text-align: center;">
+            <h3 style="font-size: 3rem; color: var(--secondary); margin-bottom: 0.5rem;">{{ category_count }}</h3>
+            <p>Categories</p>
+            <a href="{{ url_for('admin.categories') }}" class="btn-primary"
+                style="margin-top: 1rem; font-size: 0.8rem; padding: 0.5rem 1rem;">Manage</a>
+        </div>
+        <div
+            style="background: var(--background); padding: 1.5rem; border-radius: var(--radius-lg); text-align: center;">
+            <h3 style="font-size: 3rem; color: var(--accent); margin-bottom: 0.5rem;">{{ order_count }}</h3>
+            <p>Total Orders</p>
+            <a href="{{ url_for('admin.orders') }}" class="btn-primary"
+                style="margin-top: 1rem; font-size: 0.8rem; padding: 0.5rem 1rem;">Manage</a>
+        </div>
+        <div
+            style="background: var(--background); padding: 1.5rem; border-radius: var(--radius-lg); text-align: center;">
+            <h3 style="font-size: 3rem; color: var(--text-light); margin-bottom: 0.5rem;">{{ user_count }}</h3>
+            <p>Users</p>
+        </div>
+    </div>
+
+    <h3>Recent Orders</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in recent_orders %}
+            <tr>
+                <td>#{{ order.id }}</td>
+                <td>{{ order.date_ordered.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>${{ order.total_price }}</td>
+                <td>{{ order.status }}</td>
+                <td><a href="{{ url_for('admin.order_details', id=order.id) }}" class="btn-secondary"
+                        style="padding: 0.2rem 0.5rem; font-size: 0.8rem;">View</a></td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5">No orders found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

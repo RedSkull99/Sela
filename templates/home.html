@@ -1,0 +1,35 @@
+{% extends "master.html" %}
+
+{% block content %}
+<section id="shop-home">
+    <div class="banner-slider">
+        <div class="banner-slide">
+            <img src="{{ url_for('static', filename='image/1.png') }}" alt="Banner 1">
+        </div>
+        <div class="banner-slide">
+            <img src="https://picsum.photos/id/1015/1200/400" alt="Banner 2">
+        </div>
+        <div class="banner-slide">
+            <img src="https://picsum.photos/id/1016/1200/400" alt="Banner 3">
+        </div>
+    </div>
+
+    <div class="hero">
+        <h2>Welcome to Our Store</h2>
+        <p>Find the best products at the best prices.</p>
+    </div>
+
+    <div class="product-grid">
+        {% for product in products %}
+        <div class="product-card">
+            <img src="{{ url_for('static', filename='product_images/' + product.image_file) }}" alt="{{ product.name }}"
+                onerror="this.src='https://via.placeholder.com/200'">
+            <h3>{{ product.name }}</h3>
+            <p class="price">${{ product.price }}</p>
+            <a href="{{ url_for('main.product_details', product_id=product.id) }}" class="btn-primary">View Details</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

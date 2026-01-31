@@ -1,0 +1,53 @@
+{% extends "master.html" %}
+
+{% block title %}Manage Orders{% endblock %}
+
+{% block content %}
+<div class="result-card" style="max-width: 1000px;">
+    <h2>Order Management</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>#{{ order.id }}</td>
+                <td>{{ order.user.name }} ({{ order.user.email }})</td>
+                <td>{{ order.date_ordered.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>{{ order.items|length }}</td>
+                <td>${{ order.total_price }}</td>
+                <td>
+                    <span style="
+                        padding: 0.2rem 0.6rem; 
+                        border-radius: 1rem; 
+                        font-size: 0.85rem; 
+                        font-weight: 600;
+                        background: {% if order.status == 'Completed' %}#dcfce7{% elif order.status == 'Cancelled' %}#fee2e2{% else %}#fef9c3{% endif %};
+                        color: {% if order.status == 'Completed' %}#166534{% elif order.status == 'Cancelled' %}#991b1b{% else %}#854d0e{% endif %};
+                    ">
+                        {{ order.status }}
+                    </span>
+                </td>
+                <td>
+                    <a href="{{ url_for('admin.order_details', id=order.id) }}" class="btn-secondary"
+                        style="padding: 0.2rem 0.5rem; font-size: 0.8rem;">Details</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div style="margin-top: 2rem; text-align: left;">
+        <a href="{{ url_for('admin.dashboard') }}" class="btn-secondary">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "master.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+    <h2>Register</h2>
+    <div class="form-container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flashes" style="list-style: none; color: red; margin-bottom: 1rem;">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('auth.register') }}" method="POST">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required placeholder="Your Name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Choose a password">
+            </div>
+            <button type="submit" class="btn-primary">Register</button>
+            <p style="margin-top: 1rem; text-align: center;">
+                Already have an account? <a href="{{ url_for('auth.login') }}">Login here</a>
+            </p>
+        </form>
+    </div>
+</section>
+{% endblock %}
